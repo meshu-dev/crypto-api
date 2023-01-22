@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "node server --watch"
+    "dev": "node src/server --watch"
   },
   "dependencies": {
     "axios": "^1.2.2",
