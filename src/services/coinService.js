@@ -21,10 +21,10 @@ const getCoin = async (id) => {
   return result[0] ? result[0] : null;
 }
 
-const editCoin = async (id, params) => {
+const editPriceByCoinId = async (coinId, price) => {
   const result = await coin.findOneAndUpdate(
-    { _id: rid },
-    { $set: params },
+    { coinId: coinId },
+    { $set: { price: price } },
     { new: true }
   );
   return result;
@@ -34,5 +34,5 @@ module.exports = {
   addCoin,
   getCoins,
   getCoin,
-  editCoin
+  editPriceByCoinId
 };

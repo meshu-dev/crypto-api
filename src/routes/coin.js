@@ -1,4 +1,9 @@
-const { fetchData, getAll, get } = require("../controllers/coinController.js");
+const {
+  fetchData,
+  fetchPrices,
+  getAll,
+  get
+} = require("../controllers/coinController.js");
 
 const routes = (fastify, _, done) => {
   // fastify.addHook("onRequest", (request) => request.jwtVerify());
@@ -6,7 +11,7 @@ const routes = (fastify, _, done) => {
   fastify.get('/', getAll);
   fastify.get('/:id', get);
   fastify.post('/add', fetchData);
-  fastify.post('/update-prices', fetchData);
+  fastify.patch('/update-prices', fetchPrices);
 
   done();
 };

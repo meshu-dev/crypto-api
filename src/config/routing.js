@@ -1,5 +1,5 @@
-const indexRoutes = require('./routes/index.js');
-const coinRoutes = require('./routes/coin.js');
+const indexRoutes = require('./../routes/index.js');
+const coinRoutes = require('./../routes/coin.js');
 
 const initRouting = (app) => {
   app.register(indexRoutes);
