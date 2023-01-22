@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const cryptoApiUrl = 'https://api.coingecko.com/api/v3';
+const cryptoApiUrl = process.env.COINGECKO_API;
 const httpClient = axios.create({
   baseURL: cryptoApiUrl
 });

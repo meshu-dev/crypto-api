@@ -1,10 +1,12 @@
-const { getData } = require("../controllers/coinController.js");
+const { fetchData, getAll, get } = require("../controllers/coinController.js");
 
 const routes = (fastify, _, done) => {
   // fastify.addHook("onRequest", (request) => request.jwtVerify());
 
-  fastify.get('/', getData);
-  
+  fastify.get('/fetch-data', fetchData);
+  fastify.get('/', getAll);
+  fastify.get('/:id', get);
+
   done();
 };
 

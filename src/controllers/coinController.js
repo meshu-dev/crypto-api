@@ -1,20 +1,38 @@
-const fs = require('fs');
-const { getCoinMarketData } = require('./../services/data.js');
+const { sendResponse } = require("../utils/common.js");
+const { collectMarketData } = require('../services/coinCollector.js');
+const { getCoins, getCoin } = require('../services/coinService.js');
 
-const getData = async (request, reply) => {
-  const params = {
-    'vs_currency': 'usd',
-    'order': 'market_cap_desc',
-    'per_page': 100,
-    'page': 1
-  };
+const fetchData = async (request, reply) => {
+  const result = await collectMarketData();
 
-  try {
-    const stats = await getCoinMarketData(params);
-    return stats;
-  } catch (error) {
-    return getErrorResponse(error);
-  }
+  const statusCode = 200;
+  const response = { success: result };
+
+  sendResponse(reply, statusCode, response);
+}
+
+const getAll = async (request, reply) => {
+  const rows = await getCoins();
+
+  const statusCode = 200;
+  const response = rows;
+
+  sendResponse(reply, statusCode, response);
+}
+
+const get = async (request, reply) => {
+  const { id } = request.params;
+
+  const row = await getCoin(id);
+  
+  const statusCode = 200;
+  const response = row;
+
+  sendResponse(reply, statusCode, response);
+}
+
+module.exports = {
+  fetchData,
+  getAll,
+  get
 };
-
-module.exports = { getData };

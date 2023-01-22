@@ -1,5 +1,12 @@
+const { sendResponse } = require("../utils/common.js");
+
 const index = async (request, reply) => {
-  return { message: 'API is running' };
+  const statusCode = 200;
+  const response = {
+    message: 'API is running'
+  };
+
+  sendResponse(reply, statusCode, response);
 };
 
 module.exports = { index };
