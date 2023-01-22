@@ -1,5 +1,5 @@
-const { getCoinMarketData } = require('./coinGeckoApi.js');
-const addCoin = require('./coinService');
+const { getCoinMarketData } = require('./coinGeckoApi');
+const { addCoin, getCoin } = require('./coinService');
 
 const getMarketData = async () => {
   const params = {
@@ -19,14 +19,20 @@ const getMarketData = async () => {
   return stats;
 }
 
-const collectMarketData = async () => {
+const fetchMarketData = async () => {
   let stats = await getMarketData();
+  let coinsAdded = 0;
 
   for (const stat of stats) {
-    await addCoin(stat);
+    const coin = await getCoin(stat['id']);
+
+    if (coin == null) {
+      await addCoin(stat);
+      coinsAdded++;
+    }
   }
 
-  return true;
-};
+  return coinsAdded;
+}
 
-module.exports = { collectMarketData };
+module.exports = { fetchMarketData };

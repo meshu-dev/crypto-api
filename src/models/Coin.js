@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let schema = new Schema({
+const fields = {
   coinId: {
     type: String,
     required: true,
@@ -19,17 +19,25 @@ let schema = new Schema({
     type: Number,
     required: true
   }
-});
+}
 
-/*
-schema.options.toJSON.transform = (doc, ret) => {
-  ret.createdAt = new Date(ret.createdAt).toString();
-  ret.updatedAt = new Date(ret.updatedAt).toString();
+const actions = {
+  toJSON: {
+    transform: function (doc, ret) {
+      let idObj = { id: ret.coinId };
 
-  let idObj = { id: ret._id };
-  delete ret._id;
+      delete ret._id;
+      delete ret.coinId;
+      delete ret.__v;
+    
+      return Object.assign({}, idObj, ret);
+    }
+  }
+}
 
-  return Object.assign({}, idObj, ret);
-}; */
+const coinSchema = new Schema(
+  fields,
+  actions
+)
 
-module.exports = mongoose.model('coin', schema);
+module.exports = mongoose.model('coin', coinSchema);

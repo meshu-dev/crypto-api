@@ -1,12 +1,12 @@
 const { sendResponse } = require("../utils/common.js");
-const { collectMarketData } = require('../services/coinCollector.js');
+const { fetchMarketData } = require('../services/coinCollector.js');
 const { getCoins, getCoin } = require('../services/coinService.js');
 
 const fetchData = async (request, reply) => {
-  const result = await collectMarketData();
+  const result = await fetchMarketData();
 
   const statusCode = 200;
-  const response = { success: result };
+  const response = { success: true, coinsAdded: result };
 
   sendResponse(reply, statusCode, response);
 }
