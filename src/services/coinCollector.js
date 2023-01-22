@@ -35,4 +35,22 @@ const fetchMarketData = async () => {
   return coinsAdded;
 }
 
-module.exports = { fetchMarketData };
+const fetchMarketPrices = async () => {
+  let stats = await getMarketData();
+
+  for (const stat of stats) {
+    const coinId = stat['id'];
+
+    await editCoin(
+      coinId,
+      { price: stat['current_price'] }
+    );
+  }
+
+  return true;
+}
+
+module.exports = {
+  fetchMarketData,
+  fetchMarketPrices
+}

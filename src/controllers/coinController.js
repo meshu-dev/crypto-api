@@ -1,5 +1,5 @@
 const { sendResponse } = require("../utils/common.js");
-const { fetchMarketData } = require('../services/coinCollector.js');
+const { fetchMarketData, fetchMarketPrices } = require('../services/coinCollector.js');
 const { getCoins, getCoin } = require('../services/coinService.js');
 
 const fetchData = async (request, reply) => {
@@ -7,6 +7,15 @@ const fetchData = async (request, reply) => {
 
   const statusCode = 200;
   const response = { success: true, coinsAdded: result };
+
+  sendResponse(reply, statusCode, response);
+}
+
+const fetchPrices = async (request, reply) => {
+  await fetchMarketPrices();
+
+  const statusCode = 200;
+  const response = { success: true };
 
   sendResponse(reply, statusCode, response);
 }
@@ -33,6 +42,7 @@ const get = async (request, reply) => {
 
 module.exports = {
   fetchData,
+  fetchPrices,
   getAll,
   get
 };
