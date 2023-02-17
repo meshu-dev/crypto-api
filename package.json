@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "node src/server --watch"
+    "dev": "node src/server"
   },
   "dependencies": {
+    "@fastify/schedule": "^4.1.0",
     "axios": "^1.2.2",
+    "croner": "^5.6.4",
     "dotenv": "^16.0.3",
     "fastify": "^4.11.0",
     "mongoose": "^6.8.4",
-    "secure-json-parse": "^2.7.0"
+    "toad-scheduler": "^2.2.0"
   }
 }

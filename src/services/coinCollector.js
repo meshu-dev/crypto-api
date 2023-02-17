@@ -1,7 +1,7 @@
 const { getCoinMarketData } = require('./coinGeckoApi');
-const { addCoin, getCoin, editPriceByCoinId } = require('./coinService');
+const { addCoin, getCoins, getCoin, editPriceByCoinId } = require('./coinService');
 
-const getMarketData = async () => {
+const fetchMarketData = async () => {
   const params = {
     'vs_currency': 'usd',
     'order': 'market_cap_desc',
@@ -19,8 +19,8 @@ const getMarketData = async () => {
   return stats;
 }
 
-const fetchMarketData = async () => {
-  let stats = await getMarketData();
+const addCryptos = async () => {
+  let stats = await fetchMarketData();
   let coinsAdded = 0;
 
   for (const stat of stats) {
@@ -35,8 +35,8 @@ const fetchMarketData = async () => {
   return coinsAdded;
 }
 
-const fetchMarketPrices = async () => {
-  let stats = await getMarketData();
+const updatePrices = async () => {
+  let stats = await fetchMarketData();
 
   for (const stat of stats) {
     const coinId = stat['id'];
@@ -50,7 +50,15 @@ const fetchMarketPrices = async () => {
   return true;
 }
 
+const updateCryptos = async () => {
+  const rows = await getCoins();
+
+  if (rows && rows.length > 0) {
+    return await updatePrices();
+  }
+  return await addCryptos();
+}
+
 module.exports = {
-  fetchMarketData,
-  fetchMarketPrices
+  updateCryptos
 }

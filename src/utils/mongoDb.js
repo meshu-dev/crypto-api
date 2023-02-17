@@ -11,8 +11,6 @@ const initMongoDb = (fastify) => {
     forceClose: true,
     url: mongoDbUrl
   });
-
-  console.log('DDD', m);
 };
 
 module.exports = initMongoDb;
