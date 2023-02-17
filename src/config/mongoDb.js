@@ -7,7 +7,6 @@ let mongoose = require('mongoose'),
   };
 
 if (
-  process.env.MONGO_DB_USERNAME !== 'dev' &&
   process.env.MONGO_DB_USERNAME &&
   process.env.MONGO_DB_PASSWORD
 ) {
@@ -18,10 +17,7 @@ if (
 exports.connect = function () {
   let url = mongoDbUrl;
 
-  if (
-    process.env.MONGO_DB_USERNAME !== 'dev' &&
-    process.env.MONGO_DB_AUTH_SOURCE
-  ) {
+  if (process.env.MONGO_DB_AUTH_SOURCE) {
     url = `${url}?authSource=` + process.env.MONGO_DB_AUTH_SOURCE;
   }
 
