@@ -7,6 +7,10 @@ const fields = {
     required: true,
     unique: true
   },
+  name: {
+    type: String,
+    required: true
+  },
   symbol: {
     type: String,
     required: true
@@ -16,6 +20,10 @@ const fields = {
     required: true
   },
   price: {
+    type: Number,
+    required: true
+  },
+  rank: {
     type: Number,
     required: true
   }

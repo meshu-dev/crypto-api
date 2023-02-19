@@ -1,8 +1,17 @@
 const { sendResponse } = require("../utils/common.js");
-const { getCoins, getCoin } = require('../services/coinService.js');
+const { getCoins, getTopTenCoins, getCoin } = require('../services/coinService.js');
 
 const getAll = async (request, reply) => {
   const rows = await getCoins();
+
+  const statusCode = 200;
+  const response = rows;
+
+  sendResponse(reply, statusCode, response);
+}
+
+const getTopTen = async (request, reply) => {
+  const rows = await getTopTenCoins();
 
   const statusCode = 200;
   const response = rows;
@@ -23,5 +32,6 @@ const get = async (request, reply) => {
 
 module.exports = {
   getAll,
+  getTopTen,
   get
 };

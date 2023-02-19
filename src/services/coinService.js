@@ -6,7 +6,8 @@ const addCoin = async (stat) => {
     name: stat['name'],
     symbol: stat['symbol'],
     image: stat['image'],
-    price: stat['current_price']
+    price: stat['current_price'],
+    rank: stat['market_cap_rank']
   };
 
   await coin(params).save();
@@ -14,6 +15,10 @@ const addCoin = async (stat) => {
 
 const getCoins = async () => {
   return await coin.find({});
+}
+
+const getTopTenCoins = async () => {
+  return await coin.find({}).sort({ rank: 1 }).limit(10);
 }
 
 const getCoin = async (id) => {
@@ -33,6 +38,7 @@ const editPriceByCoinId = async (coinId, price) => {
 module.exports = {
   addCoin,
   getCoins,
+  getTopTenCoins,
   getCoin,
   editPriceByCoinId
-};
+}

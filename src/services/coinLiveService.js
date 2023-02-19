@@ -5,14 +5,23 @@ const sendCoinsLive = (socketIO) => {
     console.info('Socket connected!', socket.id);
 
     let interval = setInterval(async () => {
-      const coins = await getCoins();
-      socketIO.emit("coins", coins);
+      await sendAllCoins(socketIO);
     }, 10000);
 
     socket.on("disconnect", function () {
       clearInterval(interval);
     });
   });
+}
+
+const sendAllCoins = async (socketIO) => {
+  const coins = await getCoins();
+  socketIO.emit("coins", coins);
+}
+
+const sendTopTenCoins = async (socketIO) => {
+  const coins = await getCoins();
+  socketIO.emit("topTenCoins", coins);
 }
 
 module.exports = {

@@ -1,8 +1,8 @@
-const path = require('path'); 
 require('dotenv').config({ path: `${__dirname}/../.env` });
 
 const fastify = require("fastify");
 
+const initCors = require('./config/cors.js');
 const initRouting = require('./config/routing.js');
 const initSchedules = require('./config/schedules.js');
 const initSocketIO = require('./config/socketIO.js');
@@ -12,6 +12,8 @@ const build = (opts = {}) => {
   const app = fastify(opts);
 
   mongoDb.connect();
+
+  initCors(app);
   initRouting(app);
   initSchedules(app);
   initSocketIO(app);
