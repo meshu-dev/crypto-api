@@ -5,9 +5,12 @@ const initCors = (app) => {
     origin: (origin, cb) => {
       if (origin) {
         const hostname = new URL(origin).hostname;
+        const frontendUrl = process.env.FRONTEND_URL;
   
-        if (hostname === "localhost") {
-          //  Request from localhost will pass
+        if (
+          hostname === "localhost" ||
+          hostname === frontendUrl
+        ) {
           cb(null, true);
           return;
         }
