@@ -7,6 +7,8 @@ const initCors = (app) => {
         const hostname = new URL(origin).hostname;
         const frontendUrl = process.env.FRONTEND_URL;
   
+        console.log('frontendUrl', hostname, frontendUrl);
+
         if (
           hostname === "localhost" ||
           hostname === frontendUrl

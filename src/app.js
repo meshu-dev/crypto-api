@@ -2,6 +2,7 @@ require('dotenv').config({ path: `${__dirname}/../.env` });
 
 const fastify = require("fastify");
 
+const initMiddleware = require('./config/middleware.js');
 const initCors = require('./config/cors.js');
 const initRouting = require('./config/routing.js');
 const initSchedules = require('./config/schedules.js');
@@ -13,6 +14,7 @@ const build = (opts = {}) => {
 
   mongoDb.connect();
 
+  initMiddleware(app);
   initCors(app);
   initRouting(app);
   initSchedules(app);
