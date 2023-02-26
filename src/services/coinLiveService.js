@@ -1,4 +1,4 @@
-const { getCoins } = require('./coinService');
+const { getCoins, getTopTenCoins } = require('./coinService');
 
 const sendCoinsLive = (socketIO) => {
   socketIO.on('connection', (socket) => {
@@ -6,6 +6,7 @@ const sendCoinsLive = (socketIO) => {
 
     let interval = setInterval(async () => {
       await sendAllCoins(socketIO);
+      await sendTopTenCoins(socketIO);
     }, 10000);
 
     socket.on("disconnect", function () {
@@ -20,7 +21,7 @@ const sendAllCoins = async (socketIO) => {
 }
 
 const sendTopTenCoins = async (socketIO) => {
-  const coins = await getCoins();
+  const coins = await getTopTenCoins();
   socketIO.emit("topTenCoins", coins);
 }
 
