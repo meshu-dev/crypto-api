@@ -1,5 +1,5 @@
 const { getCoinMarketData } = require('./coinGeckoApi');
-const { addCoin, getCoins, getCoin, editPriceByCoinId } = require('./coinService');
+const { addCoin, getCoins, getCoin, editByCoinId } = require('./coinService');
 
 const fetchMarketData = async () => {
   const params = {
@@ -40,10 +40,14 @@ const updatePrices = async () => {
 
   for (const stat of stats) {
     const coinId = stat['id'];
+    const coinParams = {
+      price: stat['current_price'],
+      rank: stat['market_cap_rank']
+    };
 
-    await editPriceByCoinId(
+    await editByCoinId(
       coinId,
-      stat['current_price']
+      coinParams
     );
   }
 
