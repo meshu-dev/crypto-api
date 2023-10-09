@@ -1,5 +1,6 @@
 const { getCoinMarketData } = require('./coinGeckoApi');
 const { addCoin, getCoins, getCoin, editByCoinId } = require('./coinService');
+const { getErrorResponse } = require('./../utils/common');
 
 const fetchMarketData = async () => {
   const params = {
