@@ -4,6 +4,7 @@ const app = build({ logger: true });
 
 const init = async () => {
   const params = {
+    host: process.env.HOST || 'localhost',
     port: process.env.PORT || 3000
   };
   
