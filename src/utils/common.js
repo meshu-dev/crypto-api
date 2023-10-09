@@ -20,5 +20,6 @@ const getErrorResponse = (error) => {
 };
 
 module.exports = {
-  sendResponse
+  sendResponse,
+  getErrorResponse
 };
